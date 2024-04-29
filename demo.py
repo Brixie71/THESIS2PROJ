@@ -55,7 +55,7 @@ backend_target_pairs = [[cv2.dnn.DNN_BACKEND_OPENCV, cv2.dnn.DNN_TARGET_CPU],[cv
                          cv2.dnn.DNN_TARGET_CUDA_FP16], [cv2.dnn.DNN_BACKEND_TIMVX, cv2.dnn.DNN_TARGET_NPU],[cv2.dnn.DNN_BACKEND_CANN,   cv2.dnn.DNN_TARGET_NPU]]
 
 parser = argparse.ArgumentParser(description='YuNet: A Fast and Accurate CNN-based Face Detector (https://github.com/ShiqiYu/libfacedetection).')
-parser.add_argument('--model', '-m', type=str, default='YuNet_model.onnx',
+parser.add_argument('--model', '-m', type=str, default='face_detection_yunet_2023mar_modified.onnx',
                     help="Usage: Set model type, defaults to 'face_detection_yunet_2023mar_modified.onnx'.")
 parser.add_argument('--backend_target', '-bt', type=int, default=0)
 parser.add_argument('--conf_threshold', type=float, default=0.9,
@@ -86,22 +86,21 @@ def visualize(image, results, input_size, box_color=(0, 208, 255), text_color=(0
 
     return output
 
-backend_id = backend_target_pairs[args.backend_target][0]
-target_id = backend_target_pairs[args.backend_target][1]
-
-# Instantiate YuNet
-model = YuNet(modelPath=args.model,
-            inputSize=[320, 320],
-            confThreshold=args.conf_threshold,
-            nmsThreshold=args.nms_threshold,
-            topK=args.top_k,
-            backendId=backend_id,
-            targetId=target_id)
-
 if __name__ == '__main__':
+    backend_id = backend_target_pairs[args.backend_target][0]
+    target_id = backend_target_pairs[args.backend_target][1]
+
+    # Instantiate YuNet
+    model = YuNet(modelPath=args.model,
+               inputSize=[320, 320],
+               confThreshold=args.conf_threshold,
+               nmsThreshold=args.nms_threshold,
+               topK=args.top_k,
+               backendId=backend_id,
+               targetId=target_id)
     
     # Omit input to call default camera
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(0)
     w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     model.setInputSize([w, h])
