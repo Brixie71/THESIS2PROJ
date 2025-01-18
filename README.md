@@ -3,6 +3,9 @@ This Thesis project was done via a Group Thesis.
 
 The objective of this project is to track people's Physical Appearance across 3 CCTV Cameras. The System is requires human intervention for Identification and continuous tracking of the Subject. The System uses YoloV8 to Track the Physical Appearance of the Person and uses the YuNet Algorithm to Track the faces of the persons selected by the User in the software. 
 
+# Role 
+The Group was composed of 4 People. I was the Assistant Developer and Tester of the Project. I was included in Debugging and Trial and Error of the System. It was one of the Hardest Systems I've Worked on 
+
 # OpenCV
 The System uses Open CV Library via the Python Programming Language. The YoloV8 and YuNet Algorithm was Implemented using the Python Programming language.
 
